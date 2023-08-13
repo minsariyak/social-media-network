@@ -1,0 +1,34 @@
+.body {
+    margin: 10px;
+}
+
+.post, .add-post-form {
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.bi-heart-fill {
+    color: red;
+}
+
+.like-btn, .like-btn:focus, .edit-btn, .edit-btn:focus, .done-btn, .done-btn:focus {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    outline: inherit;
+}
+
+.edit-btn, .done-btn {
+    color: #007bff;
+}
+
+.post-username {
+    font-weight: bold;
+}
+
+.page-item {
+    margin: 10px;
+}

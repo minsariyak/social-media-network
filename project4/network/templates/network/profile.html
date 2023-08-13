@@ -1,0 +1,50 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h2>Profile - {{ user.username }}</h2>
+
+    <p>Followers: {{ total_followers }}</p>
+    <p>Following: {{ total_following }}</p>
+
+    {% if not owner %}
+        {% if not follows %}
+            <button class="btn btn-primary" onclick="location.href='{% url 'follow' user.id%}'">Follow</button>
+        {% else %}
+            <button class="btn btn-danger" onclick="location.href='{% url 'unfollow' user.id %}'">Unfollow</button>
+        {% endif %}
+    {% endif %}
+
+    <h6>Your Posts:</h6>
+
+    <div id="all-posts-view">
+        {% for post in page_obj %}
+            <div id="post-{{post.id}}" class="post">
+                <p class="post-username" onclick="location.href='{% url 'profile' post.user.id%}'">{{post.user.username}}</p>
+
+                {% if request.user.id == post.user.id %}
+                    <button class="edit-btn" onclick="edit_post({{post.id}})">Edit</button>
+                {% endif %}
+
+                <p>{{post.content}}</p>
+                <p>{{post.dateCreated}}</p>
+                <p id="post-{{post.id}}-likes"><script>get_total_likes({{post.id}})</script></p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li class="page-item">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <hr>
+{% endblock %}
